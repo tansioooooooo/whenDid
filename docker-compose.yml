@@ -1,0 +1,30 @@
+version: '3'
+
+networks:
+  common:
+    driver: bridge
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: ./docker/nginx/
+    ports:
+      - '8000:80'
+    volumes:
+      - ./:/usr/share/nginx/html
+      - ./log/nginx:/var/log/nginx/
+    depends_on:
+      - php
+    networks:
+      - common
+
+  php:
+    container_name: php
+    build:
+      context: ./docker/php/
+    volumes:
+      - ./:/usr/share/nginx/html
+      - ./log/php:/var/log/php-fpm
+    networks:
+      - common
