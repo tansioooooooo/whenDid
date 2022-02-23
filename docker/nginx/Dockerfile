@@ -2,6 +2,8 @@ FROM amazonlinux:2
 
 RUN yum -y update
 
+RUN yum install -y procps net-tools less glibc-lanpack-ja make
+
 RUN amazon-linux-extras install nginx1
 
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
